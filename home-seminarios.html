@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seminários — The Match Champ Jiu-Jitsu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --black: #080E16;
+      --navy:  #0D1B2A;
+      --gold:  #D4A017;
+      --white: #F5F5F0;
+      --gray:  #8A8A8A;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+    }
+
+    /* ── SECTION ── */
+    .seminars-section {
+      padding: 80px 24px 100px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 28px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px; letter-spacing: 2px;
+      color: var(--white); line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 15px; color: var(--gray);
+      max-width: 520px; line-height: 1.7;
+      margin-bottom: 50px;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    /* first card spans 2 columns */
+    .card:first-child {
+      grid-column: span 2;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(212,160,23,0.12);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      display: block;
+      background: #0d1117;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212,160,23,0.5);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.55), 0 0 20px rgba(212,160,23,0.08);
+    }
+
+    /* thumb wrapper */
+    .thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .thumb-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease, opacity 0.25s ease;
+      filter: brightness(0.75);
+    }
+
+    .card:hover .thumb-wrap img {
+      transform: scale(1.05);
+      filter: brightness(0.55);
+    }
+
+    /* dark overlay */
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 30%,
+        rgba(8,14,22,0.92) 100%
+      );
+    }
+
+    /* lock badge */
+    .lock-badge {
+      position: absolute;
+      top: 10px; right: 10px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(212,160,23,0.92);
+      color: #000;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: opacity 0.2s;
+    }
+
+    .lock-badge svg {
+      width: 9px; height: 9px;
+      stroke: #000; fill: none;
+      stroke-width: 2.5; stroke-linecap: round;
+    }
+
+    /* play icon center */
+    .play-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .play-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(212,160,23,0.15);
+      border: 2px solid rgba(212,160,23,0.6);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+    }
+
+    .card:hover .play-btn {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+
+    .play-btn svg {
+      width: 16px; height: 16px;
+      fill: var(--gold); margin-left: 3px;
+      transition: fill 0.22s ease;
+    }
+
+    .card:hover .play-btn svg { fill: #000; }
+
+    /* info at bottom of card */
+    .card-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 14px;
+    }
+
+    .card-num {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); opacity: 0.8;
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px; letter-spacing: 1px;
+      color: var(--white);
+    }
+
+    .card:first-child .card-title {
+      font-size: 22px;
+    }
+
+    /* ── CTA BAR ── */
+    .cta-bar {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      background: rgba(212,160,23,0.05);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 10px;
+    }
+
+    .cta-text {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cta-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(212,160,23,0.12);
+      border: 1px solid rgba(212,160,23,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cta-icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--gold); fill: none;
+      stroke-width: 2; stroke-linecap: round;
+    }
+
+    .cta-info strong {
+      display: block;
+      font-size: 14px; font-weight: 700;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .cta-info span {
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .cta-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      background: var(--gold);
+      color: #000;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      border-radius: 7px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .cta-btn:hover { background: #e6b820; transform: scale(1.03); }
+
+    .cta-btn svg {
+      width: 14px; height: 14px;
+      stroke: #000; fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .card:first-child { grid-column: span 3; }
+      .section-heading { font-size: 40px; }
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .card:first-child { grid-column: span 2; }
+      .section-heading { font-size: 32px; }
+      .cta-bar { flex-direction: column; gap: 16px; text-align: center; }
+      .cta-text { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="seminars-section">
+
+    <p class="section-label">Conteúdo Exclusivo</p>
+    <h2 class="section-heading">Seminários TMC</h2>
+    <p class="section-desc">
+      Conteúdo exclusivo para professores credenciados. 
+      Faça login na área restrita para assistir aos seminários completos.
+    </p>
+
+    <!-- GRID DE THUMBS -->
+    <div class="grid">
+
+      <!-- Card 1 — destaque -->
+      <a class="card" href="login.html?redirect=seminarios">
+        <div class="thumb-wrap">
+          <img src="https://img.youtube.com/vi/RCeUV9pt4Ww/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/RCeUV9pt4Ww/hqdefault.jpg'"
+               alt="Seminário 1"/>
+          <div class="thumb-overlay"></div>
+          <div class="lock-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Exclusivo
+          </div>
+          <div class="play-wrap">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-num">Seminário · 01</div>
+          <div class="card-title">Seminário 1</div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a class="card" href="login.html?redirect=seminarios">
+        <div class="thumb-wrap">
+          <img src="https://img.youtube.com/vi/92-qiajeVho/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/92-qiajeVho/hqdefault.jpg'"
+               alt="Seminário 2"/>
+          <div class="thumb-overlay"></div>
+          <div class="lock-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Exclusivo
+          </div>
+          <div class="play-wrap">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-num">Seminário · 02</div>
+          <div class="card-title">Seminário 2</div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a class="card" href="login.html?redirect=seminarios">
+        <div class="thumb-wrap">
+          <img src="https://img.youtube.com/vi/gssb427b6OA/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/gssb427b6OA/hqdefault.jpg'"
+               alt="Seminário 3"/>
+          <div class="thumb-overlay"></div>
+          <div class="lock-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Exclusivo
+          </div>
+          <div class="play-wrap">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-num">Seminário · 03</div>
+          <div class="card-title">Seminário 3</div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a class="card" href="login.html?redirect=seminarios">
+        <div class="thumb-wrap">
+          <img src="https://img.youtube.com/vi/sHcljgiRmFU/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/sHcljgiRmFU/hqdefault.jpg'"
+               alt="Seminário 4"/>
+          <div class="thumb-overlay"></div>
+          <div class="lock-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Exclusivo
+          </div>
+          <div class="play-wrap">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-num">Seminário · 04</div>
+          <div class="card-title">Seminário 4</div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a class="card" href="login.html?redirect=seminarios">
+        <div class="thumb-wrap">
+          <img src="https://img.youtube.com/vi/49AnIecv7Jo/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/49AnIecv7Jo/hqdefault.jpg'"
+               alt="Seminário 5"/>
+          <div class="thumb-overlay"></div>
+          <div class="lock-badge">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Exclusivo
+          </div>
+          <div class="play-wrap">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-num">Seminário · 05</div>
+          <div class="card-title">Seminário 5</div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- CTA BAR -->
+    <div class="cta-bar">
+      <div class="cta-text">
+        <div class="cta-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="cta-info">
+          <strong>Conteúdo exclusivo para professores credenciados</strong>
+          <span>Faça login para ter acesso completo aos seminários e e-books TMC.</span>
+        </div>
+      </div>
+      <a href="login.html?redirect=seminarios" class="cta-btn">
+        Acessar Área Restrita
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seminários — The Match Champ Jiu-Jitsu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --black: #080E16;
+      --navy:  #0D1B2A;
+      --gold:  #D4A017;
+      --white: #F5F5F0;
+      --gray:  #8A8A8A;
+      --card:  #0d1117;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+    }
+
+    /* ── HEADER ── */
+    header {
+      width: 100%;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px; letter-spacing: 1px;
+      color: #000; font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 2px;
+      color: var(--white);
+    }
+    .logo-text span { color: var(--gold); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-tag {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212,160,23,0.1);
+      border: 1px solid rgba(212,160,23,0.3);
+      padding: 4px 14px; border-radius: 20px;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--gold); }
+    .back-btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px; letter-spacing: 2px;
+      color: var(--white); line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
+      font-size: 15px; color: var(--gray);
+      max-width: 540px; line-height: 1.6;
+      margin-bottom: 52px;
+    }
+
+    /* ── FEATURED (first video big) ── */
+    .featured {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      margin-bottom: 40px;
+      background: var(--card);
+      border: 1px solid rgba(212,160,23,0.15);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .featured-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .featured-player iframe {
+      position: absolute;
+      inset: 0; width: 100%; height: 100%;
+      border: none;
+    }
+
+    .featured-info {
+      padding: 32px 28px 32px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .featured-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: #000;
+      background: var(--gold);
+      padding: 4px 10px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .featured-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; letter-spacing: 1.5px;
+      color: var(--white); line-height: 1.1;
+    }
+
+    .featured-sub {
+      font-size: 14px; color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px; color: var(--gray);
+    }
+
+    .featured-meta svg {
+      width: 14px; height: 14px;
+      stroke: var(--gold); fill: none;
+      stroke-width: 2; stroke-linecap: round;
+    }
+
+    /* ── GRID (remaining videos) ── */
+    .grid-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 2px;
+      color: var(--white);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .grid-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(212,160,23,0.15);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(212,160,23,0.12);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212,160,23,0.45);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 16px rgba(212,160,23,0.07);
+    }
+
+    .card-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .card-thumb-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card:hover .card-thumb-wrap img {
+      transform: scale(1.04);
+      opacity: 0.85;
+    }
+
+    /* play button overlay */
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.25);
+      transition: background 0.22s ease;
+    }
+
+    .card:hover .play-overlay {
+      background: rgba(0,0,0,0.45);
+    }
+
+    .play-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(212,160,23,0.9);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.22s ease, background 0.22s ease;
+    }
+
+    .card:hover .play-circle {
+      transform: scale(1.12);
+      background: var(--gold);
+    }
+
+    .play-circle svg {
+      width: 16px; height: 16px;
+      fill: #000; margin-left: 3px;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .card-num {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 1px;
+      color: var(--white);
+    }
+
+    /* ── MODAL ── */
+    #modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #modal.open { display: flex; }
+
+    .modal-box {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card);
+      border: 1px solid rgba(212,160,23,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: fadeUp 0.25s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(212,160,23,0.12);
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 1.5px;
+      color: var(--white);
+    }
+
+    .modal-close {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 18px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .modal-close:hover { background: var(--gold); color: #000; }
+
+    .modal-player {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+    }
+
+    .modal-player iframe {
+      position: absolute;
+      inset: 0; width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(212,160,23,0.1);
+      padding: 24px 40px;
+      text-align: center;
+      font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .featured { grid-template-columns: 1fr; }
+      .featured-info { padding: 20px 20px 24px; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 0 16px; }
+      main { padding: 32px 16px 60px; }
+      .section-heading { font-size: 34px; }
+      .grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+      .header-tag { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-area">
+      <img class="logo-img"
+           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABDCAYAAAB9aTATAAAU50lEQVR4nO2dd7xVxbXHf3MLKE0FRVFQsCFgwQaCINHYjYLowxKxRH3yMX4w9ppg1KeJGrtYyNPYUYLhSTS2aLBjF9DYsTeiooICl3u/74+1hj1ncw73cLl4L+h8Pvtz9syeWVPWzJrVZk7QMhqACknxqZNUG0KgjHKVXkZerq6ccs0thKZuwOIER1alJEII84t8byNpFUntJK0oQ9A8SbMlzZT0Vb4cECRVSUJlIr85hGUCcXGVhBBqkrSVJPWRNEjSNpJ6SOqkRffpO0nvSnpR0mOSHg8hvJLAjBNjfnNHYLNGXB5hjqzBkg6StIN8kCVNkzRV0quS3pf0laQZklpIWkFSK0mdJa0rqZekTT0uSR9JukvSLSGEZ5K6q7UMILBZBaDCBy7GuwOjgTlYeA04B+iT5svBWKueOroA/wWMA2Y73KnAYUALzxOAqsbt3XIagCrfdwR0A27yQa1x5PVI8rYAVgdaAmOAJ4CBwEHAZOBioLV/GwwcA1Q6SUzrbAsMA572uj4GDk++V+fL/BQ8+Oyu9vdq4Hc+iHOAM4EV/dtqQG/PcyLwoZcdCNzrea51RB0A9HTEnQCc6N+rgMsjonPt6Avc73W/DGybtO+n1ZeGlDQCWwCv+MBdA3T09E2BTYCRwAxP+wXwKbCzx+/x3wuBPfy9nyPgJWAnT+sN3AiM8NW5C3AasC62rwrYESPJABdEpFGCNP/QocmXvw9UCCHUACMkPS9jKvqHEEaEED73QdtD0qOSXpHUBviZpHdkjMlxDq4OWEFSjaT1gfMlbSnpNkmTZFylJA2UNC2EcI2k2yUdKekpSZdLai9r0EMyRuYcSSdJegro5u2sjuS8qUKTIs6RRgihFrhc0tWS/iKpdwjhKeAoYDWXva6Q9KWk02VIOELSHEkdJLUC9pL0pqQNJE2QtI+kD7zMdBkH+pFX3UfSZ8BhkjaXtJmkkyVNCiHMAK4HrpMJ57+TNEDS2pJeBgY6l9vkyGuSEJkE/x3nJOn45PvdvmIWkCfgDOAR4HHgFkfs8cAawLZAG5wjLFLfShgzUwUcATwGDAf+Auzr+13wb18DR3m5jb2da5ExL3v6txZNhbwmqTTuIzJtxV0y2eyAEMJYYDtJX0vaSlI/SS9JGhtC+A/QU9LZkp6W9Kykd0IIH+Rgt5G0ukx2q5atyq9CCJ/k8rWSrcIDPamjpE8kHSsjvwd7/Y9I6hlCeB1oKWm8jGwPDiHcDVSnioHlNuQYkZt9Bu/j8V2BQcBDvo/8H3CTf+vkvwNy8NYHfgP8HXjHV8ss4FvgG3+fBfwHeAETKfZMVybG9OwGXAXc4yu7s5e/FtgeuNVXWIXXBTDIyzcLhmWpBQpZ/rO98wd7fGXgOOBqYBTwBiafjQcecHIWOb4K4FDgWeB74HUvNwzYCGib1FmNyXr9naz+A/gS+ALby3rn2ng6MBT4K/BPR2YNMMa/V2Hk/UmfEOvG9B9oGH/4kCBtsCPtHI8fCVzr7xdh4sAhwFhgADAkgXEI8K6voD8CnZNvawO7Y4L2KEy7cipwMCaftUry7uqImQvclSCgEjgQEyme9Ceu+ouBiUArYFXgE0zbEvfOJufSGz3EjgGdfKY+4OmdgXsxZmE7T7vWV9/ewGqeti4wCSNfJyZwdwduBz6i/jAXeN6RuraXXx+4D1u5JydwBwDnYkxQFUYez/LJdJDn6etwr/L48kUySbQOPmNnAR09fQVP74WRvv09PjIpvy/wHcZ9Rji/Bt7OIaYOI2vzijzzc3lrsJW2scPbBZiB7a+reNq2wDbAnV73HcCfgfZk1OMUhzfA480LeT7IFQ18Wnr5w72TccbGzse9qyPwL2B3j7cCzvMyR3vaMApXV40/8x1xi3pqE0SmYTwmUrQHHgXeB7p5fX2Bff29J5keNZ2MUzCmqD22p1ZjJLexnoaRYDL2fYkCMARnRurJ185/22Ikc0uPdwIuxeS4b33Qy0FYfNJVNwljRIZgaq8DknpvxRiYrsXGIEFelT9bYmqxjo0xTiXGJPhTIZUhxwEVIYQ6zBbWWiZ7NTR8I6lWplYqBifI3RBkVuk6L9NSZtWuifIYtveNlrSvzCZX3+Sq8zyvS/pVCOFJh7O6JIUQPvN4pWtybpW0vaSeMgt6rUzLgyOuIoRQm1YArClpVTWORqpCNh54vS/GCVOvjZCMhK0DfEDThLlF0p4CdvS2PeRpNSx6pdUB/8bIcSVwBZl9D2wPPYNCkeVJYFJuLCqS8VkN22sfLdHOxgqne30L9s+SK47MGSfIFLA9JJ0mm7lL2yoc21Up6U8yHeSVMqv2ZpKOl1m2B0t6RqaLrPZy+T6RPJs7rKf8/UZJD8qU0kMl7SfpihDCSGx2t5X0qaSzQggXAC1CCPMw7cxpMv1mlaTXJD0s6WVJn8soQENDdH5ax/v8QAhhF584i3Zs8lkXrcBjHOs7L0FjGhQwme5tEoHa07tiAvrXGCMw0ttYbNVFRuRPXjYaZncoUt8o/zaIbB/b3dO6erwfMN3TbiInwDdi3+8BZmL7eqAcPoOMVIzwBp7i8ZZkG/LSeqJ4cHA6YbzuymRCdce4xP/1+AtFkDff83yMcahR7jrBy0TBOXKBATPMPurfo/1uuOfby8u/BfRLxisk7V8S7rGlwzvL69k7xUd9SIssbj8vfGeavjQDvn8AG2J7zuu4SJHLFyfWmd7GTTEtfpTjapN3gAM9/7+BV5OBDgnM2O9RXqYNJj8O8fQdPP0RjFFboFRopL7HPXQbr+e6tK/1FvZOdcRUSm8C7Xxm1iebFAxEDm4cqEWVr/Y8LTFBHOAP6aDm4FV6u94Fpnr6RV5uXoK0x/3bMR6PgnJlDmacND0936GYKWgLTMabiVnRV6ynTQ2hMrHvrTAy/BawYlkTIxncgMk4n+Os8g8ZMGUx2IopOshpGqZzBPhvbHW+R+HK2wRYBeP67igFz9PjvjYdeCJJH+/wuhUrX+/glt/3670vW3m8JJVLP1SGEOYDl0jaTtIYSVv5DCuHSwqSJocQPgZClHf8dw2ZbasURxQ5qV6SRvj7uzKOUR4vrMxkrcoQwn2Yr8llMheFIyXd730bHUKYCtzmxY71QS7VjuineZukU4HWMl/MoZJODyFMB6pSb2hczvX3/pI2kXlRlxui7NpZ0mGSzgghPEc5dj4y+n5kMtsbEvbLwYurYshiwHgMk6+uSWGVaHcFRiG6YqsravH/5jBak+0ZJ6VtKgEvtre3l9kTk/dmO6wKCvfFSF63w/bOJQ3/iH2mxLYTQ8wQNQBPS+qdfK9dqERhiCtlA0njJM0tkW+uwzpQ5m1cqUweDDIrdZ3Mar2xbMbfHscnBUQyw12jUxlCeBczEY0CLpU0UuZsNBu4QdJbki7xga5LYBVoInwVB0lTJL0nk9XWlzTeYS1YbWQalp1lK/xtmRw4Wabt+VbSSqpfoxP7WCHpy4iPcrQjcdY22I0B2MBnTGRf8ysuykIblyi/FkZmhGniZ5Jxjgu1Kzfro/K7JaYcnpJ8O9br/Xnannr6Etv+x2QlDKFQqRz1hu0wi8KLGFmNMLphsuXikMyF+rY4haLzTrlPNOVH0lIf4vp4/upksCuASzAH1QqMxN2QwknatwKweb6DST2/8HqOwNj5OcCENE8s68+awHopvARWPzImZ6M4Prn+xa2lt8dbeR/i1rB5rr/1PT+MD1DSyU3LRNxWufR0dncnkx13yuWLA7YRxjV2yHc0yfsgtgrudsStTaJVz+X9K5lGJb+aqjEflnnAqvFbLu9Y4LOkXITb3xHeL83fmKGpTe1xD30xhPC6jKOcJTsCJWX7UWznIJl/45m+z6Xtxwf2aEltJO0p6dwQwvsyTX7k/OLetIXM93IgyT7ve0ulc3T3yrjTPHcX959Wkr4v0a+g8va3BoUmRVxiIrkbU/cMkfT3EMIcH+A4QBGBw/z3WKB3FAkcVp0MQW9KukqmHL6QHEMiLVg5l3t0M0ndvS1xPGK942UIaBebnPudIqkz0F6FiFrB35eaMr6pV5xkg/2dpG1lA3SLp0eyFO2Ba8pcx6+QnYG7tgisOkfKBZL2CSHMlTKuMa42SYd4fb+VWRX29nLpEWNJelKm7e+Ztin5fosMQWf5xKnxiVQjc6X/wuMVlKdBWWortCAs6R6XyzsG00+29nhqZY4exmDqp7j5H5CHl2tfMe6zHeaaF1VhU8hUZuk+GNt1B3Bxmpbr2/nelvNxC/qShHKR16S+gJhmZT7G+g+VdL/LS3FlSG6Dwlwe3g8hfCppAjBZ0mXAREnfOay4soLsIElKIiuctJ4js8Af4+m3SzoPWCeE8B6ZnEjy/ULMopDCizLkad7+UyUdB7wg2/eCyiOVJHDvDCH8mTK0Jk1NKmP9fWSDeXMcdGkBYuucq9tW0i2YGNJO0lGSVlNGphb0JYRAijSfxXVAL5lwflkI4SWgg6Sxnm1wCXJ5v9cz2NtSldRR6208UVJfSTfIFkNHL9OxjGcNf3pJGgPsGk8ELcnALjIsKalM8l2JKYGjs06eTA738t0wf8eJ/v1aT+9OjuUv0c5HMeG+JXaM+GZPfwt4zt+LiQ23Y4rnKL+GHPwlXgCYTPwMpl6LsuXS2fMaAXHRFPIZ2WnSyiLwHySTl/7gsAZg+sNvgX+W6mgCY5iXiy7v72IW9ID5mkQGKJUb8xaISzy+0BErMpPO4roupvLfWpg57RXvW8Nd8xYVlgRxybet/dsB5NRK/rsyJszGQXvNB3maxw/P1Z3XkFRgGo1Pgec9/SSy0AfzpgY7tlWsDW3JfDlPSmA32opIxqO/13OXxxv/HF4RxA0l0zqk9r09iiAuDs5FmItBB7IVGGFUkK2UXhhJhMyP5DcOYwrmchBdKyKM6AoQV+mm2AGQWWSG1is9z/tknGYsnyLxVjKryaUUalqqcmUa+kT9bJyMZ3u86Jm/xkTcniXy7VwEcbGxH+LnCEqUnQh86e/xhM8czIzzDXb4YktPP69I+WjRvt7jYxMYAO95+rmOmA4l2rGn548H+18BdlncMasvkJHpaM2PLvmNx6wkiNvEZ/AvMdK2KmZ17uDxff179EiOM2tjR8DRnj+Wa+/lOmObdbTNxUP988lWTGQwouX8fOyAyOrAPpjM9glGLgd6nuhQFD2bewPredqIXB/a+28Xb8vZmE71HS87DTsR1Bfzs2xJ5obekKcFpkyv9kkyG9jE+9g44luCuK0oLwygkIRdXma5rTGn3Oj/H724IvL2yiEvDdMws1Mrsv0xOsjO89+oaC7H6fdbMlJ+KMYJpmEOpkho6DM79wtGWbqTOE4t0aZH5prQUaZGik600UAaBVBkitfrQwhfkqmx9pcpjVP5SUmZuTJXgtGyI8SnOJzqJI9kAu9BIYQJGGe4k8yZ9bkQwtOYHDhe5pJRq0JZrVLSmyGEDTFfyz7+ba5MJktnea3XeWMI4fNkHLpI6i4zAndW4yiX4/h9L9N9PhFCGE+hcqLhgcXgeDD7V1xt5ZxbWCl5j6spfzKnNpnt47D7SVbGvKR6YO52nydlS53gGUKisiIxjJbqNwm7jjmuNi4TUbzOkvJqQwEuima3wFjqN0hkLkq7s0Xu8AQnF/GcQGqVjmfe4uCnCKxlYV/+Yqd64iTA27aF9+VOzIN6vaQPafvyRtfo1zKSzM1uSfa5Yk8B19ooiCsDsZEZGeod/KXHF+kI5L8ne5kRHv855tgaQ3o+LvWnjAicR7Yv1ib5UoeoMY6c1piz0vtk2otS2phUcH4ZY1aiR0BTqxIbJ1AoD91D4YnUkp1MBmZv7KjvBDKH1GMofSJ1rj+LOpFah93qsJnD2wPjQB8i81ReVNtif051eMvnDQyw4EKaNSg8A75IV7RkgLpQ/Az4bsBtNPwM+AYY2/09cFq5ffHfqPWJQvzyhbQYYKFbF36fppcos8Cg6r8HYwrfL7A9r0uSN9668Gvs9r2zsTPaw1n41oXdgId9hf4NWMfTu2Ln4lamiANP0o4O2GGSKSzPty5IGRPj7/l7ThZCHoUK4qlpHkfgZExuegO7aW8//J6TBOHxnpNtMWbnPuArsntOunq+NpjzawV2PdTYtA3+HpXCLfgx3XMiLeh8/mahhY4TkekqO2H70+GOkIdxryvP1wXTvNyN7XkzfUBnY8LyLCeDM7BDG1djDE5sQ1/s7pQOmIblLEyUgIybTZXiFZgaDrLrPZZPEpkP3vloApnggzDMv+V9KV8Axvn71T748UTP+pijTpq/LWa3Ww/TU3bH2PPUjWF1jBSe6BPhaV/B0bF3LcxV4kOHF/fZlmTXQUVtzY8DaTGQMSuVmNwEcJx/W9uRNA5TQ7X0lYUjYmdfWQE7Q3cgfhQsgb8x2eU2u2J6xNHAcxiD0s/rnZhbwaOBV/19JpmPZyea0e15TRoo1DxEveX1mEPPQditPhv495uAf/n7g9j1FGtj5DDVsEQD5QsYY7IKRmp7YJ7O04AzPe86mEjwpv/2wsjkVJ8Qoz3fIEz78jXZ0a8fJ9JioHD/OMqR9waFl2Zv4ek9nXTNwkjh//iKqQD291UWvcQmk905OQPzNxHw+zgBEvjtMKvCdIfVlkwAH+V1P0t2Pu7HecloPrDwnczTfLCuwwT11fFbyTFTTbyT+WNMG9PKV+QkzG5W5avmMM/3GXYUqhIjsx/FFYOZcSZi2pPxSZv6+6qDZngnc7MJFIoK1cBvfdDmYK4GceDaYQLzU46c/I0MUQyYQiZqvE3GTLTH9J/9HZFrYRdpD/fv/TBSDAvfgv7DOKwui4FCJW437LZyMD3jlQnJ60FGYivJjI8rYxeP1gA/828feFp0MbgN2D5X706YbIav5F8l337634FyQko6Pb4hxu197wP7KsZ49MUui8mXPROXwTxtO+w4c5pvTcxB6U4yH5apmHG0RQKrWQrWzXqD9RWV/2+dvSQNl7SjrP3zZKdcp8ju6Zou6Q2Z0bON7Cr8IKmLzOm0l+ygx5pezYfK/lvn2aTuZv3fOs0acTHkEehpK0naWnb0qp/K+zer2bJLAV6SHeV6LITwagIz/ptVbc59vdmFZQJxMSQDW+r/41pr4f+Pq1F5/x+3TP0J4DKFuDSQXRL3o/zHxv8HYmW9CDK7X8gAAAAASUVORK5CYII="
+           alt="The Match Champ Jiu-Jitsu"/>
+    </div>
+    <div class="header-right">
+      <div class="header-tag">Área Restrita</div>
+      <a href="area-restrita.html" class="back-btn">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Voltar
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <p class="section-label">Conteúdo Exclusivo</p>
+    <h1 class="section-heading">Seminários TMC</h1>
+    <p class="section-desc">
+      Acesso exclusivo para professores credenciados. 
+      Assista aos seminários diretamente aqui na plataforma.
+    </p>
+
+    <!-- FEATURED — Seminário 1 -->
+    <div class="featured">
+      <div class="featured-player">
+        <iframe
+          src="https://www.youtube.com/embed/RCeUV9pt4Ww?rel=0&modestbranding=1&color=white"
+          title="Seminário 1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="featured-info">
+        <span class="featured-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="#000" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Destaque
+        </span>
+        <div class="divider"></div>
+        <div class="featured-title">Seminário 1</div>
+        <div class="featured-sub">
+          Material exclusivo disponível apenas para professores credenciados da equipe The Match Champ Jiu-Jitsu.
+        </div>
+        <div class="featured-meta">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          The Match Champ · 2025/2026
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID — Seminários 2 a 5 -->
+    <div class="grid-title">Mais Seminários</div>
+
+    <div class="grid">
+
+      <div class="card" onclick="openModal('92-qiajeVho', 'Seminário 2')">
+        <div class="card-thumb-wrap">
+          <img src="https://img.youtube.com/vi/92-qiajeVho/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/92-qiajeVho/hqdefault.jpg'"
+               alt="Seminário 2"/>
+          <div class="play-overlay">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Seminário · 02</div>
+          <div class="card-title">Seminário 2</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('gssb427b6OA', 'Seminário 3')">
+        <div class="card-thumb-wrap">
+          <img src="https://img.youtube.com/vi/gssb427b6OA/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/gssb427b6OA/hqdefault.jpg'"
+               alt="Seminário 3"/>
+          <div class="play-overlay">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Seminário · 03</div>
+          <div class="card-title">Seminário 3</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('sHcljgiRmFU', 'Seminário 4')">
+        <div class="card-thumb-wrap">
+          <img src="https://img.youtube.com/vi/sHcljgiRmFU/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/sHcljgiRmFU/hqdefault.jpg'"
+               alt="Seminário 4"/>
+          <div class="play-overlay">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Seminário · 04</div>
+          <div class="card-title">Seminário 4</div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openModal('49AnIecv7Jo', 'Seminário 5')">
+        <div class="card-thumb-wrap">
+          <img src="https://img.youtube.com/vi/49AnIecv7Jo/maxresdefault.jpg"
+               onerror="this.src='https://img.youtube.com/vi/49AnIecv7Jo/hqdefault.jpg'"
+               alt="Seminário 5"/>
+          <div class="play-overlay">
+            <div class="play-circle">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Seminário · 05</div>
+          <div class="card-title">Seminário 5</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>The Match Champ Jiu-Jitsu &nbsp;·&nbsp; TMC® &nbsp;·&nbsp; Material Exclusivo para Professores Credenciados</footer>
+
+  <!-- MODAL PLAYER -->
+  <div id="modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Seminário</div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-player">
+        <iframe id="modal-frame" title="Seminário TMC"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(videoId, title) {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-frame').src =
+        `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1&color=white`;
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.getElementById('modal-frame').src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Fecha modal clicando fora
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // Fecha modal com ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Bloqueia clique direito
+    document.addEventListener('contextmenu', e => e.preventDefault());
+  </script>
+
+</body>
+</html>
