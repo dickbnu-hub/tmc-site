@@ -180,6 +180,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--black);color:var(
       <!-- ABAS DE NAVEGAÇÃO -->
       <div class="main-tabs" style="padding:0 26px">
         <button class="main-tab active" onclick="showSection('ebook',this)">📖 <span class="tab-ebook-lbl">Ebook</span></button>
+        <a class="main-tab" href="planos-aula.html" style="text-decoration:none"><span class="tab-planos-lbl">Planos de Aula</span></a>
         <button class="main-tab" onclick="showSection('videos',this)">🎥 <span class="tab-videos-lbl">Vídeos</span></button>
         <button class="main-tab" onclick="showSection('seminarios',this)">🎬 <span class="tab-sem-lbl">Seminários</span></button>
       </div>
@@ -604,6 +605,7 @@ function updateTexts(lang){
     document.getElementById('ebook-badge').textContent='In production — coming soon';
     document.getElementById('lib-welcome').innerHTML='Welcome, <span id="profName">'+( currentProf?currentProf.name.split(' ')[0]:'—')+'</span>';
     document.querySelectorAll('.tab-ebook-lbl').forEach(function(e){e.textContent='Ebook';});
+    document.querySelectorAll('.tab-planos-lbl').forEach(function(e){e.textContent='Lesson Plans';});
     document.querySelectorAll('.tab-videos-lbl').forEach(function(e){e.textContent='Videos';});
     document.querySelectorAll('.tab-sem-lbl').forEach(function(e){e.textContent='Seminars';});
     document.getElementById('sem-label').textContent='Exclusive Content';
@@ -627,6 +629,7 @@ function updateTexts(lang){
     document.getElementById('ebook-badge').textContent='Em produção — em breve';
     document.getElementById('lib-welcome').innerHTML='Bem-vindo, <span id="profName">'+( currentProf?currentProf.name.split(' ')[0]:'—')+'</span>';
     document.querySelectorAll('.tab-ebook-lbl').forEach(function(e){e.textContent='Ebook';});
+    document.querySelectorAll('.tab-planos-lbl').forEach(function(e){e.textContent='Planos de Aula';});
     document.querySelectorAll('.tab-videos-lbl').forEach(function(e){e.textContent='Vídeos';});
     document.querySelectorAll('.tab-sem-lbl').forEach(function(e){e.textContent='Seminários';});
     document.getElementById('sem-label').textContent='Conteúdo Exclusivo';
