@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hall da Fama — The Match Champ Jiu-Jitsu</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{--black:#0a0a0a;--black2:#111;--black3:#1a1a1a;--gold:#d4af37;--gold2:#f2cf63;--text:#f3f3f3;--muted:#888;--border:#222;--radius:14px}
+  html,body{min-height:100%;background:var(--black);color:var(--text);font-family:'Barlow',sans-serif}
+
+  header{width:100%;background:var(--black2);border-bottom:2px solid var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;position:sticky;top:0;z-index:50}
+  .logo-area{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .logo-badge{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#000;font-weight:900}
+  .logo-text{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--text)}
+  .logo-text span{color:var(--gold)}
+
+  .lang-toggle{display:flex;gap:6px;background:var(--black3);border:1px solid var(--border);border-radius:8px;padding:3px}
+  .lang-btn{padding:6px 12px;border-radius:6px;border:none;background:transparent;color:var(--muted);font-family:'Barlow',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:.2s}
+  .lang-btn.active{background:var(--gold);color:#000}
+
+  main{max-width:640px;margin:0 auto;padding:44px 20px 100px}
+  .eyebrow{display:inline-block;padding:5px 18px;border:1px solid var(--gold);border-radius:999px;font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:14px}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,46px);letter-spacing:1.5px;line-height:1.05;margin-bottom:12px}
+  .desc{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:32px}
+
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .field input,.field select{width:100%;background:var(--black3);border:1px solid var(--border);border-radius:10px;padding:13px 14px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:.2s}
+  .field input:focus,.field select:focus{border-color:var(--gold)}
+  .field .hint{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .photo-drop{border:2px dashed var(--border);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+  .photo-drop:hover{border-color:var(--gold)}
+  .photo-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .photo-drop .ph-icon{font-size:32px;margin-bottom:10px}
+  .photo-drop .ph-txt{font-size:13px;color:var(--muted)}
+  .photo-preview{display:none;text-align:center;margin-top:14px}
+  .photo-preview img{max-width:180px;max-height:180px;border-radius:12px;object-fit:cover;border:2px solid var(--gold)}
+
+  .submit-btn{width:100%;margin-top:8px;padding:16px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-weight:700;font-size:15px;font-family:'Barlow',sans-serif;cursor:pointer;transition:.2s;-webkit-appearance:none;appearance:none}
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,175,55,.3)}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+  .success-box{display:none;text-align:center;padding:48px 20px}
+  .success-box .ic{font-size:56px;margin-bottom:16px}
+  .success-box h2{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);letter-spacing:1px;margin-bottom:10px}
+  .success-box p{color:var(--muted);font-size:14px;line-height:1.6}
+
+  .error-msg{display:none;background:rgba(220,50,50,.1);border:1px solid rgba(220,50,50,.4);color:#ff8080;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:18px}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo-area">
+    <div class="logo-badge">TMC</div>
+    <div class="logo-text">The Match Champ <span>Jiu-Jitsu</span></div>
+  </a>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnPt" onclick="setLang('pt')">🇧🇷 PT</button>
+    <button class="lang-btn" id="btnEn" onclick="setLang('en')">🇺🇸 EN</button>
+  </div>
+</header>
+
+<main>
+  <div id="formWrap">
+    <span class="eyebrow" data-t="eyebrow">Hall da Fama</span>
+    <h1 data-t="title">Cadastro de Faixa-Preta</h1>
+    <p class="desc" data-t="desc">Preencha seus dados e envie uma foto. Sua inscrição passa por uma breve aprovação da equipe e depois aparece automaticamente no Hall da Fama do site.</p>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <form id="hallForm">
+      <div class="field">
+        <label data-t="l.nome">Nome completo *</label>
+        <input type="text" id="fNome" required/>
+      </div>
+
+      <div class="field">
+        <label data-t="l.apelido">Apelido</label>
+        <input type="text" id="fApelido"/>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label data-t="l.dan">Grau (Dan) *</label>
+          <select id="fDan" required>
+            <option value="">—</option>
+            <option value="0" data-t="opt.semdan">Sem Dan</option>
+            <option value="1">1º Dan</option>
+            <option value="2">2º Dan</option>
+            <option value="3">3º Dan</option>
+            <option value="4">4º Dan</option>
+            <option value="5">5º Dan</option>
+            <option value="6">6º Dan</option>
+            <option value="7">7º Dan</option>
+          </select>
+        </div>
+        <div class="field">
+          <label data-t="l.data">Data da faixa-preta *</label>
+          <input type="date" id="fData" required/>
+        </div>
+      </div>
+
+      <div class="field">
+        <label data-t="l.mestre">Nome do mestre que te graduou *</label>
+        <input type="text" id="fMestre" required/>
+      </div>
+
+      <div class="field">
+        <label data-t="l.insta">Instagram</label>
+        <input type="text" id="fInsta" placeholder="@seuusuario"/>
+      </div>
+
+      <div class="field">
+        <label data-t="l.foto">Foto *</label>
+        <div class="photo-drop" id="photoDrop">
+          <input type="file" id="fFoto" accept="image/*" required/>
+          <div class="ph-icon">📷</div>
+          <div class="ph-txt" data-t="l.fototxt">Toque para escolher uma foto</div>
+        </div>
+        <div class="photo-preview" id="photoPreview"><img id="photoImg" src=""/></div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn" data-t="l.enviar">Enviar Inscrição</button>
+    </form>
+  </div>
+
+  <div class="success-box" id="successBox">
+    <div class="ic">🥋</div>
+    <h2 data-t="ok.title">Inscrição enviada!</h2>
+    <p data-t="ok.desc">Sua inscrição foi enviada e está aguardando aprovação da equipe The Match Champ. Assim que aprovada, você aparece automaticamente no Hall da Fama.</p>
+  </div>
+</main>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNiYGIkdPI4P4pByvpxIKdscOTkhNwFgQi8zw9Xp7KKRUGVhRj6SKdLgo9sIxhqwHE2Q/exec';
+
+const I18N = {
+  pt: {
+    eyebrow: 'Hall da Fama', title: 'Cadastro de Faixa-Preta',
+    desc: 'Preencha seus dados e envie uma foto. Sua inscrição passa por uma breve aprovação da equipe e depois aparece automaticamente no Hall da Fama do site.',
+    'l.nome':'Nome completo *', 'l.apelido':'Apelido', 'l.dan':'Grau (Dan) *', 'l.data':'Data da faixa-preta *',
+    'l.mestre':'Nome do mestre que te graduou *', 'l.insta':'Instagram', 'l.foto':'Foto *',
+    'l.fototxt':'Toque para escolher uma foto', 'l.enviar':'Enviar Inscrição',
+    'opt.semdan':'Sem Dan',
+    'ok.title':'Inscrição enviada!',
+    'ok.desc':'Sua inscrição foi enviada e está aguardando aprovação da equipe The Match Champ. Assim que aprovada, você aparece automaticamente no Hall da Fama.',
+    errFoto:'Escolha uma foto.', errCampos:'Preencha todos os campos obrigatórios.', errEnvio:'Erro ao enviar. Tente novamente.'
+  },
+  en: {
+    eyebrow: 'Hall of Fame', title: 'Black Belt Registration',
+    desc: 'Fill in your details and upload a photo. Your submission goes through a quick review by the team and then appears automatically in the site\'s Hall of Fame.',
+    'l.nome':'Full name *', 'l.apelido':'Nickname', 'l.dan':'Degree (Dan) *', 'l.data':'Black belt date *',
+    'l.mestre':'Name of the master who promoted you *', 'l.insta':'Instagram', 'l.foto':'Photo *',
+    'l.fototxt':'Tap to choose a photo', 'l.enviar':'Submit Registration',
+    'opt.semdan':'No Dan',
+    'ok.title':'Submission sent!',
+    'ok.desc':'Your submission was sent and is awaiting approval from The Match Champ team. Once approved, you\'ll appear automatically in the Hall of Fame.',
+    errFoto:'Please choose a photo.', errCampos:'Please fill in all required fields.', errEnvio:'Error submitting. Please try again.'
+  }
+};
+let currentLang = 'pt';
+
+function setLang(l) {
+  currentLang = l;
+  document.getElementById('btnPt').classList.toggle('active', l === 'pt');
+  document.getElementById('btnEn').classList.toggle('active', l === 'en');
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+  document.querySelectorAll('[data-t]').forEach(function(el) {
+    const key = el.getAttribute('data-t');
+    if (I18N[l][key]) el.textContent = I18N[l][key];
+  });
+}
+
+// ── Abre já no idioma certo se vier pela URL (?lang=en) ──
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get('lang');
+  if (urlLang === 'en') setLang('en');
+})();
+
+// ── Preview da foto ──
+document.getElementById('fFoto').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    document.getElementById('photoImg').src = ev.target.result;
+    document.getElementById('photoPreview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+// ── Redimensiona a imagem no navegador antes de enviar (mais rápido e leve) ──
+function resizeImage(file, maxDim) {
+  return new Promise(function(resolve) {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      img.onload = function() {
+        let w = img.width, h = img.height;
+        if (w > h && w > maxDim) { h = h * (maxDim / w); w = maxDim; }
+        else if (h > maxDim) { w = w * (maxDim / h); h = maxDim; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const base64 = canvas.toDataURL('image/jpeg', 0.85).split(',')[1];
+        resolve(base64);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById('hallForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const t = I18N[currentLang];
+  const errBox = document.getElementById('errorMsg');
+  errBox.style.display = 'none';
+
+  const nome = document.getElementById('fNome').value.trim();
+  const apelido = document.getElementById('fApelido').value.trim();
+  const dan = document.getElementById('fDan').value;
+  const data = document.getElementById('fData').value;
+  const mestre = document.getElementById('fMestre').value.trim();
+  const insta = document.getElementById('fInsta').value.trim().replace('@','');
+  const fotoFile = document.getElementById('fFoto').files[0];
+
+  if (!nome || dan === '' || !data || !mestre) {
+    errBox.textContent = t.errCampos; errBox.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
+  }
+  if (!fotoFile) {
+    errBox.textContent = t.errFoto; errBox.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = currentLang === 'pt' ? 'Enviando...' : 'Sending...';
+
+  resizeImage(fotoFile, 900).then(function(base64) {
+    return fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'submitHall',
+        nome: nome, apelido: apelido, dan: dan, data_graduacao: data,
+        mestre: mestre, instagram: insta,
+        foto_base64: base64, foto_mime: 'image/jpeg'
+      })
+    });
+  }).then(function(r) { return r.json(); })
+    .then(function(res) {
+      if (res.success) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successBox').style.display = 'block';
+        window.scrollTo({top:0, behavior:'smooth'});
+      } else {
+        errBox.textContent = t.errEnvio; errBox.style.display = 'block';
+        btn.disabled = false; btn.textContent = t['l.enviar'];
+      }
+    }).catch(function() {
+      errBox.textContent = t.errEnvio; errBox.style.display = 'block';
+      btn.disabled = false; btn.textContent = t['l.enviar'];
+    });
+});
+</script>
+</body>
+</html>
